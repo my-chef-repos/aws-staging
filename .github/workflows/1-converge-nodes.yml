@@ -1,0 +1,30 @@
+name: 1:Converge Nodes
+
+on:
+  push:
+    branches: 
+      - main
+    paths:
+      - 'policyfiles/**'
+  workflow_dispatch:
+
+jobs:
+  Push-Policyfile:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+      - name: Pushing Policyfile to ChefServer
+        run: |
+          rm -rf policyfiles/*.lock.json
+          chef update policyfiles/db-server.rb -c .chef/config.rb --chef-license accept
+          chef update policyfiles/web-server.rb -c .chef/config.rb --chef-license accept
+          chef install policyfiles/db-server.rb && chef push aws policyfiles/db-server.rb -c .chef/config.rb --chef-license accept
+          chef install policyfiles/web-server.rb && chef push aws policyfiles/web-server.rb -c .chef/config.rb --chef-license accept
+          
+  Converge-Nodes:
+    runs-on: self-hosted
+    needs: Push-Policyfile
+    steps:
+      - name: Converging all AWS nodes...
+        run: 
+          knife ssh 'policy_group:aws' -x ec2-user -a cloud.public_ipv4 -i /home/ec2-user/aws-r-goto_osaka_ed25519.pem 'sudo chef-client' -c .chef/config.rb

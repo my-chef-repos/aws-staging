@@ -1,0 +1,32 @@
+name: 0:Terraform + Bootstrapping
+
+on: workflow_dispatch
+
+jobs:
+  Terraform-Bootstrapping:
+    runs-on: self-hosted
+    steps :
+      - uses: actions/checkout@v2
+      - name: Terraform + Bootstrapping
+        working-directory: ./terraforms/web-server
+        continue-on-error: true
+        id: terraform-apply
+        run: |
+          terraform init
+          terraform apply --auto-approve -var-file="web-server.tfvars"
+  
+  Cleanup:
+    runs-on: self-hosted
+    environment:
+      name: cleanup
+    steps:
+      - name: Terraform Cleanp 
+        working-directory: ./terraforms/web-server
+        run: |
+          terraform init
+          terraform destroy --auto-approve -var-file="web-server.tfvars"
+      - uses: actions/checkout@v2
+      - name: Cleanp 
+        run: |
+          knife node list -c .chef/config.rb | grep "demo" | xargs knife node delete -y -c .chef/config.rb
+          knife client list -c .chef/config.rb | grep "demo" | xargs knife client delete -y -c .chef/config.rb
