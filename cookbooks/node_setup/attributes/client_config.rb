@@ -14,7 +14,7 @@ default['node_setup']['policy_name'] = 'web'
 default['node_setup']['policy_group'] = 'aws'
 
 # Specify chef-client version
-default['node_setup']['client_updater']['version'] = '17.9.52'
+default['node_setup']['client_updater']['version'] = '17.10.0'
 default['node_setup']['client_updater']['channel'] = 'stable'
 
 # Specify chef-client cron interval settings

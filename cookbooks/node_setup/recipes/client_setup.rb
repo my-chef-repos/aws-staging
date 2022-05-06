@@ -16,12 +16,6 @@ chef_client_config 'client.rb' do
   policy_group "#{node['node_setup']['policy_group']}"
 end
 
-file 'Delete org validator key' do
-  only_if { ::File.exist?('/etc/chef/client.pem') }
-  path '/etc/chef/validation.pem'
-  action :delete
-end
-
 ###########
 # Control chef-client version with `chef_client_updater` cookbook 'https://github.com/chef-cookbooks/chef_client_updater'
 ###########
@@ -39,4 +33,5 @@ chef_client_cron 'Run Chef Infra Client as a cron job' do
   accept_chef_license true
   minute "#{node['chef_client_cron']['minute']}"
   splay "#{node['chef_client_cron']['splay']}"
+  chef_binary_path '/root/.rbenv/shims/chef-client' if platform?('raspbian') # RasPi は gem 使って chef-client を実行しているため gem の場所を指定する。
 end

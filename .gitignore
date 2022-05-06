@@ -11,7 +11,8 @@
 ## Ignore Chef related files and secrets
 .chef/*.pem
 .chef/encrypted_data_bag_secret
-
+*.kitchen*
+*Berksfile.lock*
 ## Ignore Chef-Zero files
 clients
 nodes
