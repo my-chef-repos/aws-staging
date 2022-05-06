@@ -12,12 +12,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Kitchen Test
-        working-directory: cookbooks/node_setup-cookbook
+        working-directory: cookbooks/node_setup
         continue-on-error: true
         id: kitchen-test
         run: kitchen test
       - name: Cleanup Kitchen
-        working-directory: cookbooks/node_setup-cookbook
+        working-directory: cookbooks/node_setup
         if: steps.kitchen-test.outcome == 'failure'
         run: kitchen destroy && exit 1
       
@@ -26,7 +26,7 @@ jobs:
     needs: Kitchen-Test
     steps:
       - name: Uploading Cookbooks to Chef Server
-        working-directory: cookbooks/node_setup-cookbook
+        working-directory: cookbooks/node_setup
         run: |
           rm Berksfile.lock || echo 'Removeal not took place.'
           berks install
