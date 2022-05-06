@@ -18,8 +18,8 @@ jobs:
           rm -rf policyfiles/*.lock.json
           chef update policyfiles/db-server.rb -c .chef/config.rb --chef-license accept
           chef update policyfiles/web-server.rb -c .chef/config.rb --chef-license accept
-          chef install policyfiles/db-server.rb && chef push aws policyfiles/db-server.rb -c .chef/config.rb --chef-license accept
-          chef install policyfiles/web-server.rb && chef push aws policyfiles/web-server.rb -c .chef/config.rb --chef-license accept
+          chef install policyfiles/db-server.rb && chef push aws-staging policyfiles/db-server.rb -c .chef/config.rb --chef-license accept
+          chef install policyfiles/web-server.rb && chef push aws-staging policyfiles/web-server.rb -c .chef/config.rb --chef-license accept
           
   Converge-Nodes:
     runs-on: self-hosted
@@ -27,4 +27,4 @@ jobs:
     steps:
       - name: Converging all AWS nodes...
         run: 
-          knife ssh 'policy_group:aws' -x ec2-user -a cloud.public_ipv4 -i /home/ec2-user/aws-r-goto_osaka_ed25519.pem 'sudo chef-client' -c .chef/config.rb
+          knife ssh 'policy_group:aws-staging' -x ec2-user -a cloud.public_ipv4 -i /home/ec2-user/aws-r-goto_osaka_ed25519.pem 'sudo chef-client' -c .chef/config.rb

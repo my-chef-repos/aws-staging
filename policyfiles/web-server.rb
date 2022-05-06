@@ -18,7 +18,7 @@ override['node_setup']['timezone'] = 'Asia/Tokyo'
 
 # Specify Policy name & Policy group
 override['node_setup']['policy_name'] = 'web'
-override['node_setup']['policy_group'] = 'aws'
+override['node_setup']['policy_group'] = 'aws-staging'
 
 # Specify chef-client version
 override['node_setup']['chef_client']['version'] = '17.9.52'
