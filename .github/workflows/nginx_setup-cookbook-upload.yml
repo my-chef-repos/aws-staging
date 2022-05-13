@@ -3,7 +3,7 @@ name: nginx_setup Cookbook Upload
 on:
   push: 
     paths: 
-      - 'cookbooks/nginx_setup/**'
+      - 'cookbooks/nginx_setup/metadata.rb'
   workflow_dispatch:
 
 jobs:

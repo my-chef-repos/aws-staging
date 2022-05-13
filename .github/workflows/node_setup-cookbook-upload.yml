@@ -3,7 +3,7 @@ name: node_setup Cookbook Upload
 on:
   push: 
     paths: 
-      - 'cookbooks/node_setup/**'
+      - 'cookbooks/node_setup/metadata.rb'
   workflow_dispatch:
 
 jobs:
