@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title><%= node['platform'] %></title>
+<meta http-equiv="content-type" charset="UTF-8">
+<style>
+    body {
+        width: 60em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+        color: rgb(14, 13, 13);
+        text-align: center
+    }
+    img {
+        background-color: black;
+    }
+    h1 {
+        color: orange;
+    }
+</style>
+</head>
+<body>
+<img src="chef-progress-logo.png" alt="Chef-Progress Official Logo"/>
+<h1 style="text-align:center">Thank you for using Chef!</h1>
+<h2>Hello from [<%= node['platform'] %>]
+  <p style="color: black"><%= `date` %></p>
+</h2>
+<p style="color: black">If you see this page, the nginx web server is successfully updated with chef and
+working.</p>
+
+<p><em>Welcome aboard!!</em></p>
+</body>
+</html>

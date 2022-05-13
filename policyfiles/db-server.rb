@@ -10,7 +10,6 @@ run_list 'postgresql_setup::default'
 cookbook 'node_setup', '1.0.0'
 cookbook 'postgresql_setup', '1.0.0'
 
-
 ##########
 # Attributes
 ##########
