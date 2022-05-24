@@ -1,0 +1,27 @@
+name: Cookbooks Upload
+
+on: [ push, workflow_dispatch ]
+  
+jobs:
+  Kitchen-Test:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+      - name: Kitchen Test
+        continue-on-error: true
+        id: kitchen-test
+        run: |
+          kitchen test
+      - name: Cleanup Kitchen
+        if: steps.kitchen-test.outcome == 'failure'
+        run: kitchen destroy && exit 1
+      
+  Cookbook-Upload:
+    runs-on: self-hosted
+    needs: Kitchen-Test
+    steps:
+      - name: Uploading Cookbooks to Chef Server
+        run: |
+          rm Berksfile.lock || echo 'Removeal not took place.'
+          berks install
+          berks upload --force

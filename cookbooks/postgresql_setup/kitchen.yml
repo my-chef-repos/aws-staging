@@ -1,0 +1,35 @@
+---
+driver:
+  name: ec2
+  some_config: true
+  instance_type: c5d.2xlarge
+  security_group_ids: sg-0b110af304806fd92
+  region: ap-northeast-3
+  skip_cost_warning: true
+
+transport:
+
+provisioner:
+  name: chef_zero
+  product_name: chef
+  product_version: 17.9.52
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: rhel-8
+    driver:
+      tags: { "Name": "postgresql_setup-TestKitchen" }
+
+suites:
+  - name: default
+    run_list:
+      - recipe[postgresql_setup::default]    
+    verifier:
+      inspec_tests:
+        - compliance/profiles/validation_tests
+    attributes: { 
+     audit: { reporter: 'cli' },
+      environment: "production"
+     }
