@@ -1,4 +1,4 @@
-name: node_setup Cookbook Upload
+name: postgresql_setup Cookbook Upload
 
 on:
   push: 
