@@ -4,4 +4,9 @@
 # found at https://docs.chef.io/inspec/resources/
 
 chef_node = input('chef_node', description: 'Chef Node')
-puts "\n##############################################\nConverged Cookbook バージョン: v#{chef_node['cookbooks']}\n##############################################"
+
+if chef_node.match('Skipping test.')
+  puts 'Comliance Phase 外の InSpec 実行では、ノードオブジェクトを取得できないため、Cookbook バージョン確認は、スキップ'
+else
+  puts "\n##############################################\n\n\n 適用された Cookbook バージョン: #{chef_node['cookbooks']}\n\n\n##############################################"
+end

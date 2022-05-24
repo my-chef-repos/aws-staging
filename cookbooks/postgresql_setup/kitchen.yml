@@ -12,7 +12,7 @@ transport:
 provisioner:
   name: chef_zero
   product_name: chef
-  product_version: 17.9.52
+  product_version: 17.10.0
 
 verifier:
   name: inspec

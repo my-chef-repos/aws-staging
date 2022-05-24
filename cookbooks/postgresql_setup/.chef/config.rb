@@ -8,7 +8,8 @@ current_dir = File.dirname(__FILE__)
   cookbook_license         "Apache-2.0"
   cookbook_email           "cookbooks@first.org"
   chef_license             'accept'
-
+  ssl_verify_mode          :verify_none
+  
   # Amazon AWS
   knife[:aws_access_key_id] = ENV['AWS_ACCESS_KEY_ID']
   knife[:aws_secret_access_key] = ENV['AWS_SECRET_ACCESS_KEY']

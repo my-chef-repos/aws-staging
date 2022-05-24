@@ -13,6 +13,7 @@
 .chef/encrypted_data_bag_secret
 *.kitchen*
 *Berksfile.lock*
+*Policyfile.lock*
 ## Ignore Chef-Zero files
 clients
 nodes
