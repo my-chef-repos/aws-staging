@@ -21,9 +21,9 @@ platforms:
   - name: rhel-8
     driver:
       tags: { "Name": "node_setup-TestKitchen-RHEL8" }
-  - name: debian-10
-    driver:
-      tags: { "Name": "node_setup-TestKitchen-Debian10" }
+  # - name: debian-10
+  #   driver:
+  #     tags: { "Name": "node_setup-TestKitchen-Debian10" }
 
 suites:
   - name: default

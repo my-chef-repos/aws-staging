@@ -1,0 +1,33 @@
+name: node_setup Cookbook Upload
+
+on:
+  push: 
+    paths: 
+      - 'cookbooks/postgresql_setup/metadata.rb'
+  workflow_dispatch:
+
+jobs:
+  Kitchen-Test:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+      - name: Kitchen Test
+        working-directory: cookbooks/postgresql_setup
+        continue-on-error: true
+        id: kitchen-test
+        run: kitchen test
+      - name: Cleanup Kitchen
+        working-directory: cookbooks/postgresql_setup
+        if: steps.kitchen-test.outcome == 'failure'
+        run: kitchen destroy && exit 1
+      
+  Cookbook-Upload:
+    runs-on: self-hosted
+    needs: Kitchen-Test
+    steps:
+      - name: Uploading Cookbooks to Chef Server
+        working-directory: cookbooks/postgresql_setup
+        run: |
+          rm Berksfile.lock || echo 'Removeal not took place.'
+          berks install
+          berks upload --force
