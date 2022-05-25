@@ -30,4 +30,4 @@ jobs:
         run: |
           rm Berksfile.lock || echo 'Removeal not took place.'
           berks install
-          berks upload --force
+          berks upload --force --ssl-verify false
