@@ -1,0 +1,8 @@
+name 'node_setup'
+maintainer 'Ryuji Goto'
+maintainer_email 'r-goto@creationline.com'
+license 'All Rights Reserved'
+description 'Installs/Configures node_setup'
+version '1.0.0'
+chef_version '>= 17.0'
+depends 'chef_client_updater', '~> 3.12.2'
