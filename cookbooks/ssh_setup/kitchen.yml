@@ -3,16 +3,18 @@ driver:
   name: ec2
   some_config: true
   instance_type: c5d.2xlarge
-  security_group_ids: sg-0b110af304806fd92
-  region: ap-northeast-3
+  associate_public_ip: true
+  security_group_ids: sg-00b5070a83f0ce88b
+  region: ap-northeast-1
   skip_cost_warning: true
 
 transport:
+  username: ec2-user
 
 provisioner:
   name: chef_zero
   product_name: chef
-  product_version: 17.10.0
+  product_version: 18.1.0
 
 verifier:
   # name: inspec
@@ -20,7 +22,13 @@ verifier:
 platforms:
   - name: rhel-8
     driver:
-      tags: { "Name": "ssh_setup-TestKitchen" }
+      image_id: ami-029787469e80c1d90
+      tags: { "Name": "RHEL8_ssh_setup-TestKitchen" }
+
+  - name: rocky
+    driver:
+      image_id: ami-0d9205b68191e3342
+      tags: { "Name": "Rocky8_ssh_setup-TestKitchen" }
 
 suites:
   - name: default
