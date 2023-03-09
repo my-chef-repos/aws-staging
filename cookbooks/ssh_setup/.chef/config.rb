@@ -1,3 +1,7 @@
+# This config file and .chef directory would be transferred to 
+# Github Runner and be used on the Runner. (The Runner is the Chef Workstation)
+# Github repo must have AWS credentials and Github Runner must have the "client_key"
+
 current_dir = File.dirname(__FILE__)
   user = 'r-goto'
   node_name                user
